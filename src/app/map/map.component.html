@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="map-container col-md-12">
+        <agm-map [latitude]="lat" [longitude]="lng" >
+            <agm-marker [latitude]="mark.lat" [longitude]="mark.lng" *ngFor="let mark of cityMarkerList"></agm-marker>
+        </agm-map>
+    </div>
+</div>
+
+<hr style="border-top: 1px solid black;">
+
+
+<input type="button" class="button-style" (click)="addRegion = true;" style="margin-left:10px;" value="Add Table"/>
+<div class="row new-table-row" *ngIf="addRegion">
+    <div class="col-md-3">
+        Enter Region Name
+    </div>
+    <div class="col-md-3">
+        <input type="text" value="NCR" class="input-style" [(ngModel)]="newRegion"/>
+    </div>
+    <div class="col-md-1" style="padding-top: 3px;">
+        <input type="button" (click)="addTable()" class="button-style"  style="margin-left:10px;float: right;" value="Submit"/>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-6" *ngFor="let region of regionList">
+        <div class="table-style">
+            <div class="region-head">
+                <input type="text" [value]="region.name" style="float: left;border: none;border-radius: 2px !important;"/>
+                <input type="button" class="button-style" (click)="addCity(region)"  style="margin-left:10px;float: right;" value="Save"/>
+                <input type="button" class="button-style"  style="margin-left:10px;float: right;" value="Delete Region"/>
+            </div>
+            <div class="row table-head">
+                <div class="col-md-2">Disabled</div>
+                <div class="col-md-2">Name</div>
+                <div class="col-md-5">Latitude/Longitude</div>
+                <div class="col-md-3">Volume</div>
+            </div>
+            <div class="row" style="margin: 0px;background: #dede6bad;" *ngFor="let city of region.cities">
+                <div class="col-md-2" style="text-align: center;"><input type="checkbox"></div>
+                <div class="col-md-2"><input class="input-style" type="text" [value]="city.name"></div>
+                <div class="col-md-5">
+                    <div class="row" style="margin: 0px;">
+                        <div class="col-md-6"><input type="text" class="input-style" [value]="city.lat || ''"></div>
+                        <div class="col-md-6"><input type="text" class="input-style" [value]="city.lng || ''"></div>
+                    </div>
+                </div>
+                <div class="col-md-3"><input type="text" class="input-style" [value]="city.volume || ''"></div>
+            </div>
+            <div class="row" style="margin: 0px;background: #dede6bad;">
+                <div class="col-md-2" style="text-align: center;"><input type="checkbox"></div>
+                <div class="col-md-2"><input class="input-style" type="text" name="name" [(ngModel)]="newCity.name"></div>
+                <div class="col-md-5">
+                    <div class="row" style="margin: 0px;">
+                        <div class="col-md-6"><input type="number" class="input-style" name="lat" [(ngModel)]="newCity.lat"></div>
+                        <div class="col-md-6"><input type="number" class="input-style" name="lng" [(ngModel)]="newCity.lng"></div>
+                    </div>
+                </div>
+                <div class="col-md-3"><input type="text" class="input-style" name="vol" [(ngModel)]="newCity.volume"></div>
+            </div>
+        </div>
+    </div>
+</div>
